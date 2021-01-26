@@ -1,0 +1,55 @@
+ <div class="container-fluid">
+
+    <h1 *ngIf="employeeDetails"> Employee Details :  {{employeeDetails.length}} </h1>
+    <hr>
+    <div class="row">
+      <div class="col-md-2">
+        <select name="cars" id="cars" class="form-control">
+          <option value="Departments">Departments</option>
+          <option value="saab">Computer</option>
+          <option value="mercedes">Physics</option>
+          <option value="audi">Chemistry</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input type="text" name="name" id="email" class="form-control" placeholder="Name / Email" [(ngModel)]="key">
+      </div>
+      <div class="col-md-1">
+         <button type="button" class="btn btn-secondary">Search</button>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-secondary">Reset and Reload Data</button>
+     </div>
+     <div class="col-md-2"></div>
+     <div class="col-md-1">
+      <select name="cars" id="cars" class="form-control">
+        <option value="Departments"> Sort By </option>
+        <option value="saab">name(a-z)</option>
+        <option value="mercedes">name(z-a)</option>
+        <option value="audi">age</option>
+        <option value="audi">email</option>
+      </select>
+    </div>
+    </div>
+    <hr>
+    <div class="row form-group">
+
+       <div class="col-md-12">
+        <table class="table table-bordered">
+          <thead>
+           <th>Employee Name</th>
+           <th>Age</th>
+           <th>Email Address</th>
+           <th>Departments</th>
+          </thead>
+          <tbody *ngFor="let data of employeeDetails | filter:key">
+            <tr>
+              <td>{{data.name}}</td>
+              <td>{{data.age}}</td>
+              <td>{{data.email}}</td>
+              <td>{{data.departments.length}}</td>
+            </tr>
+          </tbody>
+        </table>
+       </div>
+ </div>
