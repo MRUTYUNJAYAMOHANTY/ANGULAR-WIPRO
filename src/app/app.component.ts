@@ -8,14 +8,46 @@ import  Employees  from '../assets/data.json';
 })
 export class AppComponent {
   title = 'employee-details';
-  employeeDetails:any[]= Employees["employees"];
+  public employeeDetails:{name:string,age:number,email:string,departments:string[]}[]= Employees;
   key: string ;
-  constructor(){}
-  ngOnInit(){
 
-    this.employeeDetails;
-    console.log("employeeDetails=="+JSON.stringify(this.employeeDetails));
-  }
-
+  public SortBy = [{name:'name(a-z)'},{name:'name(z-a)'},{name:'age'},{name:'email'}];
+  sortByselected= this.SortBy[0].name;
+  selectedSort: string ;
    
+  constructor(){}
+
+  ngOnInit(){
+    this.employeeDetails;
+    // console.log("employeeDetails==" + JSON.stringify(this.employeeDetails));  
+  }   
+    
+    sortBy(event:any){
+      this.selectedSort = event.target.value;
+       
+      if(this.selectedSort === "name(a-z)"){
+        this.employeeDetails.sort((a,b) => {
+          return a.name.localeCompare(b.name)
+        } );
+         
+      }
+      else if(this.selectedSort === "name(z-a)"){
+        this.employeeDetails.sort((a,b) => {
+          return b.name.localeCompare(a.name)
+    
+        } );
+      }
+      else if(this.selectedSort === "age"){
+        this.employeeDetails.sort((a,b) => {
+          return a.age-b.age;
+    
+        } );
+      }
+      else{
+        this.employeeDetails.sort((a,b) => {
+          return a.email.localeCompare(b.email)
+        } );
+    
+      }
+    }
 }
