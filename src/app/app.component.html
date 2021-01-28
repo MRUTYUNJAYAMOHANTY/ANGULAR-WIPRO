@@ -1,24 +1,23 @@
  <div class="container-fluid">
-
     <h1 *ngIf="employeeDetails"> Employee Details : Total Number Of Employees - {{employeeDetails.length}} </h1>
     <hr>
     <div class="row">
       <div class="col-md-2">
-        <select name="dept" id="dept" class="form-control">
-           <option value="Departments">Departments</option>
-           <option value="Computer">Computer</option>
-           <option value="Physics">Physics</option>
-           <option value="Chemistry">Chemistry</option>
+        <select class="form-control" [(ngModel)]= "selectedDep"  (change)= "departmet($event)"> 
+          <option value="department" [selected] = 'isSelected' > Department </option> 
+          <option *ngFor= "let dept of depvalue ">
+            {{dept}}
+          </option> 
         </select>
       </div>
       <div class="col-md-3">
-        <input type="text" name="name" id="email" class="form-control" placeholder="Name / Email" [(ngModel)]="key">
+        <input class="form-control" name="empField" [(ngModel)]="empField"  type="text" placeholder="Name/Email">
       </div>
       <div class="col-md-1">
-         <button type="button" class="btn btn-secondary">Search</button>
+        <button class="btn btn-secondary" type="button" (click)="search()">Search</button>
       </div>
       <div class="col-md-3">
-        <button type="button" class="btn btn-secondary">Reset and Reload Data</button>
+        <button type="button" class="btn btn-secondary" (click)="clear()">Reset and Reload Data </button>
      </div>
      <div class="col-md-1"></div>
      <div class="col-md-2">
@@ -41,7 +40,7 @@
            <th>Email Address</th>
            <th>Departments</th>
           </thead>
-          <tbody ng-repeat *ngFor="let data of employeeDetails | filter:key">
+          <tbody *ngFor="let data of employeeDetails">
             <tr>
               <td>{{data.name}}</td>
               <td>{{data.age}}</td>

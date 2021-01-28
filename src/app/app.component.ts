@@ -10,10 +10,16 @@ import  Employees  from '../assets/data.json';
 export class AppComponent {
   title = 'employee-details';
 
-  public employeeDetails:{name:string,age:number,email:string,departments:string[]}[]= Employees;
-  key: string ;
+  isSelected = true;
+ 
+  public employeeDetails:{name:string,age:number,email:string,departments:string[]}[] = Employees;
 
-  public SortBy = [{name:'name(a-z)'},{name:'name(z-a)'},{name:'age'},{name:'email'}];
+  public allEmployees = [...this.employeeDetails];
+  public depvalue  = ["Chemistry","Physics","Computer"] ;
+  public selectedDep : string = '' ;
+  empField : string ;
+  
+  public SortBy = [{name:'Sort By'},{name:'name(a-z)'},{name:'name(z-a)'},{name:'age'},{name:'email'}];
   sortByselected= this.SortBy[0].name;
   selectedSort: string ;
    
@@ -22,7 +28,6 @@ export class AppComponent {
   ngOnInit(){
     this.employeeDetails;
     // console.log("employeeDetails==" + JSON.stringify(this.employeeDetails));  
-    this.departmet();
     this.employeeDetails.sort((a,b) => {
           return a.name.localeCompare(b.name)
         } );
@@ -56,14 +61,32 @@ export class AppComponent {
     
       }
     }
-    departmet(){
-      for(let i=0; i < this.employeeDetails.length ; i++){
-          let a = this.employeeDetails[i]
-          console.log(a.departments);
-           
+
+    departmet(event:any){
+      this.selectedDep = event.target.value; 
+      this.employeeDetails= []; 
+      if(this.selectedDep === "department")
+      { this.employeeDetails = this.allEmployees; return; }
+      else{ for(let i=0; i< this.allEmployees.length;i++)
+        { if(this.allEmployees[i].departments.includes(this.selectedDep))
+          { this.employeeDetails.push(this.allEmployees[i]); 
+          } 
+        } 
+      }
+    }
+
+    search(){
+      if(this.empField.includes('@')){
+        this.employeeDetails = this.employeeDetails.filter(res => {
+          return res.email.toLocaleLowerCase().match(this.empField.toLocaleLowerCase());
+        })
+      }else{
+        this.employeeDetails = this.employeeDetails.filter(res => {
+          return res.name.toLocaleLowerCase().match(this.empField.toLocaleLowerCase());
+        })
       }
     }
     clear(){
-      
+      this.employeeDetails = this.allEmployees;
     }
 }
