@@ -9,17 +9,16 @@ import  Employees  from '../assets/data.json';
 
 export class AppComponent {
   title = 'employee-details';
-
-  isSelected = true;
  
   public employeeDetails:{name:string,age:number,email:string,departments:string[]}[] = Employees;
 
   public allEmployees = [...this.employeeDetails];
-  public depvalue  = ["Chemistry","Physics","Computer"] ;
-  public selectedDep : string = '' ;
-  empField : string ;
+  public depvalue:string[]  = ["Chemistry","Physics","Computer"] ;
   
-  public SortBy = [{name:'Sort By'},{name:'name(a-z)'},{name:'name(z-a)'},{name:'age'},{name:'email'}];
+   selectedDep : string = '';
+  empField : string ;
+
+  public SortBy = [{name:'name(a-z)'},{name:'name(z-a)'},{name:'age'},{name:'email'}];
   sortByselected= this.SortBy[0].name;
   selectedSort: string ;
    
@@ -27,6 +26,7 @@ export class AppComponent {
 
   ngOnInit(){
     this.employeeDetails;
+     
     // console.log("employeeDetails==" + JSON.stringify(this.employeeDetails));  
     this.employeeDetails.sort((a,b) => {
           return a.name.localeCompare(b.name)
@@ -35,7 +35,6 @@ export class AppComponent {
     
     sortBy(event:any){
       this.selectedSort = event.target.value;
-       
       if(this.selectedSort === "name(a-z)"){
         this.employeeDetails.sort((a,b) => {
           return a.name.localeCompare(b.name)
@@ -66,27 +65,38 @@ export class AppComponent {
       this.selectedDep = event.target.value; 
       this.employeeDetails= []; 
       if(this.selectedDep === "department")
-      { this.employeeDetails = this.allEmployees; return; }
-      else{ for(let i=0; i< this.allEmployees.length;i++)
-        { if(this.allEmployees[i].departments.includes(this.selectedDep))
-          { this.employeeDetails.push(this.allEmployees[i]); 
+      { 
+        this.employeeDetails = this.allEmployees; 
+        return; 
+      }
+      else{ 
+        for(let i=0; i< this.allEmployees.length;i++)
+        { 
+          if(this.allEmployees[i].departments.includes(this.selectedDep) )
+          { 
+            this.employeeDetails.push(this.allEmployees[i]); 
           } 
         } 
       }
     }
 
     search(){
-      if(this.empField.includes('@')){
+      if(this.empField.includes('@'))
+      {
         this.employeeDetails = this.employeeDetails.filter(res => {
           return res.email.toLocaleLowerCase().match(this.empField.toLocaleLowerCase());
-        })
+      })
       }else{
         this.employeeDetails = this.employeeDetails.filter(res => {
           return res.name.toLocaleLowerCase().match(this.empField.toLocaleLowerCase());
         })
       }
     }
+    
     clear(){
       this.employeeDetails = this.allEmployees;
+      this.sortByselected= this.SortBy[0].name;
+      this.empField = '';
     }
+  
 }

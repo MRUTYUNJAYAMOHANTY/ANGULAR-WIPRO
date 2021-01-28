@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-2">
         <select class="form-control" [(ngModel)]= "selectedDep"  (change)= "departmet($event)"> 
-          <option value="department" [selected] = 'isSelected' > Department </option> 
+          <option value="department" selected > Department </option> 
           <option *ngFor= "let dept of depvalue ">
             {{dept}}
           </option> 
@@ -14,24 +14,21 @@
         <input class="form-control" name="empField" [(ngModel)]="empField"  type="text" placeholder="Name/Email">
       </div>
       <div class="col-md-1">
-        <button class="btn btn-secondary" type="button" (click)="search()">Search</button>
+        <button class="btn btn-primary" type="button" (click)="search()">Search</button>
       </div>
       <div class="col-md-3">
-        <button type="button" class="btn btn-secondary" (click)="clear()">Reset and Reload Data </button>
+        <button type="button" class="btn btn-danger" (click)="clear()">Reset and Reload Data </button>
      </div>
      <div class="col-md-1"></div>
      <div class="col-md-2">
- 
-      <select [(ngModel)]= "sortByselected" name="sortselect" (change)="sortBy($event)" 
-      class="form-control" >
-       <option *ngFor = "let sort of SortBy" [value]="sort.name">{{sort.name}}</option>
-      </select>
-      
+        <select [(ngModel)]= "sortByselected" name="sortselect" (change)="sortBy($event)" 
+        class="form-control" >
+        <option *ngFor = "let sort of SortBy" [value]="sort.name">{{sort.name}}</option>
+        </select>
     </div>
     </div>
     <hr>
     <div class="row form-group">
-
        <div class="col-md-12">
         <table class="table table-bordered">
           <thead>
