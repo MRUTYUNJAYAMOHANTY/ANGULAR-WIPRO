@@ -10,7 +10,6 @@
            <option value="Physics">Physics</option>
            <option value="Chemistry">Chemistry</option>
         </select>
-        
       </div>
       <div class="col-md-3">
         <input type="text" name="name" id="email" class="form-control" placeholder="Name / Email" [(ngModel)]="key">
@@ -23,11 +22,12 @@
      </div>
      <div class="col-md-1"></div>
      <div class="col-md-2">
-      
+ 
       <select [(ngModel)]= "sortByselected" name="sortselect" (change)="sortBy($event)" 
       class="form-control" >
        <option *ngFor = "let sort of SortBy" [value]="sort.name">{{sort.name}}</option>
       </select>
+      
     </div>
     </div>
     <hr>

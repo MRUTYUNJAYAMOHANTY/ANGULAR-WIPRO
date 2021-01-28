@@ -6,8 +6,10 @@ import  Employees  from '../assets/data.json';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'employee-details';
+
   public employeeDetails:{name:string,age:number,email:string,departments:string[]}[]= Employees;
   key: string ;
 
@@ -20,7 +22,11 @@ export class AppComponent {
   ngOnInit(){
     this.employeeDetails;
     // console.log("employeeDetails==" + JSON.stringify(this.employeeDetails));  
-  }   
+    this.departmet();
+    this.employeeDetails.sort((a,b) => {
+          return a.name.localeCompare(b.name)
+        } );
+    }   
     
     sortBy(event:any){
       this.selectedSort = event.target.value;
@@ -49,5 +55,15 @@ export class AppComponent {
         } );
     
       }
+    }
+    departmet(){
+      for(let i=0; i < this.employeeDetails.length ; i++){
+          let a = this.employeeDetails[i]
+          console.log(a.departments);
+           
+      }
+    }
+    clear(){
+      
     }
 }
